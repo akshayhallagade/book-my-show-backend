@@ -6,12 +6,19 @@ const moviesSchema = new Schema(
       type: String,
       required: true,
     },
-    Discription: {
-      type: String,
-    },
-    length: {
-      type: String,
+    // description: {
+    //   type: String,
+    // },
+    // length: {
+    //   type: String,
+    //   required: true,
+    // },
+    genre: {
+      type: [String],
       required: true,
+    },
+    img: {
+      type: Buffer,
     },
   },
   { timestamps: true }

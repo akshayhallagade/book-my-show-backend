@@ -16,20 +16,20 @@ const theaterSchema = new Schema(
         type: String,
         required: true,
       },
-    },
-    address: {
-      type: String,
-      required: true,
+      address: {
+        type: String,
+        required: true,
+      },
     },
     isActive: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
   },
   { timestamps: true }
 );
 
-const theater = new model("theaters", theaterSchema);
+const theaterModel = new model("theaters", theaterSchema);
 
-module.exports = theater;
+module.exports = theaterModel;
