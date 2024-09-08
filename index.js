@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/user.route");
 const movieRoutes = require("./routes/movie.route");
 const theaterRoutes = require("./routes/theater.route");
+const showsRoutes = require("./routes/shows.route");
+const bookingRoutes = require("./routes/bookings.route");
 const cors = require("cors");
 const { AuthenticationMiddleware } = require("./middleware/authentication");
 
@@ -28,6 +30,8 @@ app.use(cors());
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/movie", movieRoutes);
 app.use("/api/v1/theater", theaterRoutes);
+app.use("/api/v1/shows", showsRoutes);
+app.use("/api/v1/bookings", bookingRoutes);
 
 app.listen(8000, () => {
   console.log("App Connected to the port : ", PORT);

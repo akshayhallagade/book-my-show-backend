@@ -33,7 +33,7 @@ const handleSignUp = async (req, res) => {
     if (error.code === 11000)
       return res
         .status(401)
-        .json({ message: "user with the email alredy exist." });
+        .json({ message: "user with the email already exist." });
 
     return res.json({ error: error.message });
   }

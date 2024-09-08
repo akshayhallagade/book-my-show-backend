@@ -2,7 +2,11 @@ const moviesModel = require("../model/movies.model");
 
 const getAllMovies = async (req, res) => {
   const movieData = await moviesModel.find();
-  return res.json({ message: "Movie fetched successfully", movieData });
+
+  return res.json({
+    message: "Movie fetched successfully",
+    movieData,
+  });
 };
 const getMovieById = async (req, res) => {
   const movieData = await moviesModel.findById(req.params.id);
@@ -10,15 +14,17 @@ const getMovieById = async (req, res) => {
 };
 
 const addMovie = async (req, res) => {
-  const { title, genre } = req.body;
-  if (!req.file) res.json({ message: "Image upload failed !" });
-  const img = req.file.buffer;
-  const movieData = await moviesModel.create({
-    title,
-    genre,
-    img,
-  });
-  return res.json({ message: "Movie Created Successfully", movieData });
+  try {
+    const movieData = await moviesModel.create(req.body);
+    return res.json({
+      message: "Movie Created Successfully",
+      movieID: movieData._id,
+    });
+  } catch (error) {
+    if (error.code === 11000)
+      return res.json({ message: "Duplicate Entry Error" });
+    return res.json({ error: error.message });
+  }
 };
 const updateMovie = async (req, res) => {
   const { title, genre } = req.body;

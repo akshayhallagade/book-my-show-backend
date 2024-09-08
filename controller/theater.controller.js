@@ -8,11 +8,13 @@ const addTheater = async (req, res) => {
   const {
     theaterName,
     location: { lat, long, address },
+    isActive,
   } = req.body;
 
   const newTheater = await theaterModel.create({
     theaterName,
     location: { lat, long, address },
+    isActive,
   });
   return res.json({ message: "theater created Successfully", newTheater });
 };
@@ -31,9 +33,16 @@ const updateTheater = async (req, res) => {
   return res.json({ message: "theater updated successfully " });
 };
 const deleteTheater = async (req, res) => {
-  const theaterId = req.params.id;
-  const deletedTheater = await theaterModel.findByIdAndDelete(theaterId);
-  return res.json({ message: "theater deleted Successfull." });
+  try {
+    const theaterId = req.params.id;
+    const deletedTheater = await theaterModel.findByIdAndDelete(theaterId);
+    return res.json({
+      message: "theater deleted Successfull.",
+      id: deletedTheater._id,
+    });
+  } catch (error) {
+    res.json({ message: error });
+  }
 };
 
 module.exports = { getAllTheater, addTheater, updateTheater, deleteTheater };

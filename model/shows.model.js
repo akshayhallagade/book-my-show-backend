@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const showsSchema = new Schema(
   {
-    moviesId: {
+    movieId: {
       type: Schema.Types.ObjectId,
       required: true,
     },
@@ -14,23 +14,11 @@ const showsSchema = new Schema(
       type: Date,
       required: true,
     },
-    seats: {
-      type: [Number],
-      required: true,
-      validate: {
-        validator: function (v) {
-          return v.every((seat) => seat > 0 && seat <= 100);
-        },
-        message: "seat must from 1 to 100",
-      },
-    },
-    price: {
-      type: Number,
-      required: true,
-    },
   },
   { timestamps: true }
 );
+
+showsSchema.index({ theaterId: 1, showTime: 1 }, { unique: true });
 
 const showsModel = new model("shows", showsSchema);
 

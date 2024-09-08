@@ -30,6 +30,8 @@ const theaterSchema = new Schema(
   { timestamps: true }
 );
 
+theaterSchema.index({ lat: 1, long: 1, isActive: 1 }, { unique: true });
+
 const theaterModel = new model("theaters", theaterSchema);
 
 module.exports = theaterModel;
